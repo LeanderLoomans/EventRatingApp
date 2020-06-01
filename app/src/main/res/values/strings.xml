@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">EventRatingApp</string>
+    <string name="title">Evenement titel</string>
+    <string name="description">Evenement omschrijving</string>
 </resources>
