@@ -29,9 +29,9 @@ class MyListAdapter extends ArrayAdapter<String> {
         TextView subtitleText = (TextView) rowView.findViewById(R.id.subtitle);
         TextView date = (TextView) rowView.findViewById(R.id.date);
 
-        titleText.setText(events[position].title);
-        subtitleText.setText(events[position].description);
-        date.setText(events[position].date);
+        titleText.setText(events[position].getTitle());
+        subtitleText.setText(events[position].getDescription());
+        date.setText(events[position].getDate());
 
         return rowView;
     };

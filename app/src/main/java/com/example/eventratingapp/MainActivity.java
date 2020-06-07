@@ -8,9 +8,12 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.example.eventratingapp.database.DataBaseComm;
 import com.example.eventratingapp.models.Event;
 
 public class MainActivity extends AppCompatActivity {
+    DataBaseComm dataBaseComm;
+
     ListView list;
 
     Event[] events = {
@@ -34,6 +37,8 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        this.dataBaseComm = new DataBaseComm();
+
         setContentView(R.layout.activity_main);
 
         MyListAdapter adapter = new MyListAdapter(this, data, events);

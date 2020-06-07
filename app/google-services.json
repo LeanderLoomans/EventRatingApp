@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "347438269224",
+    "firebase_url": "https://idepat---eventratingapp.firebaseio.com",
+    "project_id": "idepat---eventratingapp",
+    "storage_bucket": "idepat---eventratingapp.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:347438269224:android:570ab6ff1c5152258e861d",
+        "android_client_info": {
+          "package_name": "com.example.eventratingapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "347438269224-88a0lohnpedd527qhh14eoop3avqen63.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.eventratingapp",
+            "certificate_hash": "7b821b54c608ffccfb6d393f119b821da689fd26"
+          }
+        },
+        {
+          "client_id": "347438269224-rv0p8jng38euhj75uatrfgrb5mlssm1u.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDudmHDzThzNqYv_uQ_jPTSYLK_j1puNTg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "347438269224-rv0p8jng38euhj75uatrfgrb5mlssm1u.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
