@@ -2,8 +2,8 @@ package com.example.eventratingapp.database;
 
 import com.example.eventratingapp.models.Event;
 
-import java.util.List;
+import java.util.ArrayList;
 
 public interface EventListCallback {
-    void onCallBack(List<Event> list);
+    void onCallBack(ArrayList<Event> list);
 }

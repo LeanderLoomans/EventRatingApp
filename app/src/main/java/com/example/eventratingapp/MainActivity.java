@@ -1,5 +1,6 @@
 package com.example.eventratingapp;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
@@ -9,12 +10,18 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.example.eventratingapp.database.DataBaseComm;
+import com.example.eventratingapp.database.EventListCallback;
+import com.example.eventratingapp.database.MessageCallback;
 import com.example.eventratingapp.models.Event;
+
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
     DataBaseComm dataBaseComm;
 
     ListView list;
+
+    ArrayList<Event> eventList = new ArrayList();
 
     Event[] events = {
             new Event("Title 1", "description 1",  "25 Feb 2020"),
@@ -39,6 +46,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         this.dataBaseComm = new DataBaseComm();
 
+        updateEventList();
+
         setContentView(R.layout.activity_main);
 
         MyListAdapter adapter = new MyListAdapter(this, data, events);
@@ -53,7 +62,7 @@ public class MainActivity extends AppCompatActivity {
                 // TODO Auto-generated method stub
                 if (position == 0) {
                     //code specific to first list item
-                    Toast.makeText(getApplicationContext(), "Place Your First Option Code", Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(getApplicationContext(), "Place Your First Option Code", Toast.LENGTH_SHORT).show();
                 } else if (position == 1) {
                     //code specific to 2nd list item
                     Toast.makeText(getApplicationContext(), "Place Your Second Option Code", Toast.LENGTH_SHORT).show();
@@ -67,7 +76,24 @@ public class MainActivity extends AppCompatActivity {
 
                     Toast.makeText(getApplicationContext(), "Place Your Fifth Option Code", Toast.LENGTH_SHORT).show();
                 }
+            }
+        });
 
+    }
+
+    public void updateEventList() {
+        dataBaseComm.readAllEventsAsObjects(new EventListCallback() {
+            @Override
+            public void onCallBack(ArrayList<Event> list) {
+                if (list != null) {
+                    eventList = list;
+                    System.out.println("\n list size 3: " + eventList.size());
+                }
+            }
+        }, new MessageCallback() {
+            @Override
+            public void onCallBack(String message) {
+                Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
             }
         });
     }

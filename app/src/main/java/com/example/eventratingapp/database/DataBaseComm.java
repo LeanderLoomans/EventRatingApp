@@ -25,17 +25,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class DataBaseComm extends AppCompatActivity {
+public class DataBaseComm {
 
     FirebaseFirestore db;
 
-    TextView txtDisplay;
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-
+    public DataBaseComm() {
         db = FirebaseFirestore.getInstance();
     }
 
@@ -43,72 +37,82 @@ public class DataBaseComm extends AppCompatActivity {
      * @param docId the ID of the event you wish to obtain
      * @param eventCallback pass a new instance of EventCallback
      */
-    public void readSingleEventObject(String docId, final EventCallback eventCallback) {
-        DocumentReference event = db.collection("Events").document(docId);
+    public void readSingleEventObject(String docId, final EventCallback eventCallback, final MessageCallback messageCallback) {
+        final DocumentReference event = db.collection("Events").document(docId);
         event.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
-
                 Event receivedEvent = documentSnapshot.toObject(Event.class);
+                System.out.println("\n receivedEvent: \n" + receivedEvent);
                 eventCallback.onCallBack(receivedEvent);
+                messageCallback.onCallBack("Successfully retrieved event");
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
-                Toast.makeText(
-                        DataBaseComm.this,
-                        "Failed to acquire event",
-                        Toast.LENGTH_SHORT)
-                        .show();
+                eventCallback.onCallBack(null);
+                messageCallback.onCallBack("Failed to retrieve event data");
             }
         });
     }
 
-    public void readAllEvents(final EventListCallback eventListCallback) {
+    public void readAllEventsAsObjects(final EventListCallback eventListCallback, final MessageCallback messageCallback) {
         CollectionReference event = db.collection("Events");
         event.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if (task.isSuccessful()) {
-                    List<Event> eventList = new ArrayList<>();
-                    for (DocumentSnapshot document : task.getResult()) {
-                        eventList.add(document.toObject(Event.class));
+                    ArrayList<Event> eventList = new ArrayList<>();
+                    try {
+                        for (DocumentSnapshot document : task.getResult()) {
+                            eventList.add(document.toObject(Event.class));
+                        }
+                        eventListCallback.onCallBack(eventList);
+                        messageCallback.onCallBack("Successfully retrieved events");
+                    } catch (Exception e) {
+                        eventListCallback.onCallBack(null);
+                        messageCallback.onCallBack("Failed to retrieve events");
+                        System.out.println(e.getMessage());
                     }
-                    eventListCallback.onCallBack(eventList);
                 }
                 else {
-                    Toast.makeText(
-                            DataBaseComm.this,
-                            "Failed to acquire events",
-                            Toast.LENGTH_SHORT).show();
+                    eventListCallback.onCallBack(null);
+                    messageCallback.onCallBack("Failed to retrieve events");
                 }
             }
         });
     }
 
-    private void readSingleEvent() {
-        DocumentReference event = db.collection("Events").document("1");
-        event.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                if(task.isSuccessful()) {
-                    DocumentSnapshot doc = task.getResult();
-                    StringBuilder data = new StringBuilder("");
-                    data.append("Naam: ").append(doc.getString("Name"));
-                    data.append("\nOmschrijving: ").append(doc.getString("Description"));
-                    data.append("\nDatum: ").append(doc.getString("Date"));
-                    txtDisplay.setText(data.toString());
+//    public void readSingleEvent() {
+//        DocumentReference event = db.collection("Events").document("1");
+//        event.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+//            @Override
+//            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+//                if(task.isSuccessful()) {
+//                    DocumentSnapshot doc = task.getResult();
+//                    StringBuilder data = new StringBuilder("");
+//                    data.append("Naam: ").append(doc.getString("Name"));
+//                    data.append("\nOmschrijving: ").append(doc.getString("Description"));
+//                    data.append("\nDatum: ").append(doc.getString("Date"));
+//                    Toast.makeText(DataBaseComm.this, data.toString(), Toast.LENGTH_SHORT);
+//
+//
+////                    newEvent.put("Description", "Vieren overwinning IKPMD");
+////                    newEvent.put("Date", "25-01-2020 16:30 tot 25-01-2020 18:00");
+//                }
+//            }
+//        });
+//    }
 
-
-//                    newEvent.put("Description", "Vieren overwinning IKPMD");
-//                    newEvent.put("Date", "25-01-2020 16:30 tot 25-01-2020 18:00");
-                }
-            }
-        });
-    }
-
-    public void addNewEvent(String title, String description, Date date) {
-        // Add new Evenement to Evenementlijst
+    /**
+     *
+     * @param eventId The ID of the new event, CFS does not Auto-increment
+     * @param title Title of the new event
+     * @param description Description of the new event
+     * @param date Date that the new event will take place
+     * @param messageCallback Callback to give user feedback
+     */
+    public void addNewEvent(int eventId, String title, String description, Date date, final MessageCallback messageCallback) {
 
         Map<String, Object> newEvent = new HashMap<>();
         newEvent.put("title", title);
@@ -116,26 +120,18 @@ public class DataBaseComm extends AppCompatActivity {
         newEvent.put("date", date.toString());
 
         db  .collection("Events")
-                .document("1")
+                .document(Integer.toString(eventId))
                 .set(newEvent)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
-                        Toast.makeText(
-                                DataBaseComm.this,
-                                "Added new event",
-                                Toast.LENGTH_SHORT)
-                                .show();
+                        messageCallback.onCallBack("Added new event");
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(
-                                DataBaseComm.this,
-                                "Failed to add new event",
-                                Toast.LENGTH_SHORT)
-                                .show();
+                        messageCallback.onCallBack("Failed to add event");
                     }
                 });
     }
