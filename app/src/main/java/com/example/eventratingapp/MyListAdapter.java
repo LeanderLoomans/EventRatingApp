@@ -10,14 +10,16 @@ import android.widget.TextView;
 import com.example.eventratingapp.models.Event;
 
 import java.lang.reflect.Array;
+import java.util.ArrayList;
 
 class MyListAdapter extends ArrayAdapter<String> {
     private final Activity context;
     private final Event[] events;
+    ;
 
     public MyListAdapter(Activity context, String[] data, Event[] events) {
         super(context, R.layout.layout_test, data);
-        this.context=context;
+        this.context = context;
         this.events = events;
     }
 
