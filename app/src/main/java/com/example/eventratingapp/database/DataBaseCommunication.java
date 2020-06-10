@@ -22,14 +22,13 @@ import com.google.firebase.firestore.QuerySnapshot;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
-public class DataBaseComm {
+public class DataBaseCommunication {
 
     FirebaseFirestore db;
 
-    public DataBaseComm() {
+    public DataBaseCommunication() {
         db = FirebaseFirestore.getInstance();
     }
 
@@ -56,6 +55,10 @@ public class DataBaseComm {
         });
     }
 
+    /**
+     * @param eventListCallback Callback to receive list of events
+     * @param messageCallback Callback to display feedback message
+     */
     public void readAllEventsAsObjects(final EventListCallback eventListCallback, final MessageCallback messageCallback) {
         CollectionReference event = db.collection("Events");
         event.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -83,36 +86,13 @@ public class DataBaseComm {
         });
     }
 
-//    public void readSingleEvent() {
-//        DocumentReference event = db.collection("Events").document("1");
-//        event.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-//            @Override
-//            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-//                if(task.isSuccessful()) {
-//                    DocumentSnapshot doc = task.getResult();
-//                    StringBuilder data = new StringBuilder("");
-//                    data.append("Naam: ").append(doc.getString("Name"));
-//                    data.append("\nOmschrijving: ").append(doc.getString("Description"));
-//                    data.append("\nDatum: ").append(doc.getString("Date"));
-//                    Toast.makeText(DataBaseComm.this, data.toString(), Toast.LENGTH_SHORT);
-//
-//
-////                    newEvent.put("Description", "Vieren overwinning IKPMD");
-////                    newEvent.put("Date", "25-01-2020 16:30 tot 25-01-2020 18:00");
-//                }
-//            }
-//        });
-//    }
-
     /**
-     *
-     * @param eventId The ID of the new event, CFS does not Auto-increment
      * @param title Title of the new event
      * @param description Description of the new event
      * @param date Date that the new event will take place
      * @param messageCallback Callback to give user feedback
      */
-    public void addNewEvent(int eventId, String title, String description, Date date, final MessageCallback messageCallback) {
+    public void addNewEvent(String title, String description, Date date, final MessageCallback messageCallback) {
 
         Map<String, Object> newEvent = new HashMap<>();
         newEvent.put("title", title);
@@ -120,7 +100,7 @@ public class DataBaseComm {
         newEvent.put("date", date.toString());
 
         db  .collection("Events")
-                .document(Integer.toString(eventId))
+                .document()
                 .set(newEvent)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override

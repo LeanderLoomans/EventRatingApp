@@ -1,6 +1,5 @@
 package com.example.eventratingapp;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
@@ -9,48 +8,36 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import com.example.eventratingapp.database.DataBaseComm;
+import com.example.eventratingapp.database.DataBaseCommunication;
 import com.example.eventratingapp.database.EventListCallback;
 import com.example.eventratingapp.database.MessageCallback;
 import com.example.eventratingapp.models.Event;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Date;
 
 public class MainActivity extends AppCompatActivity {
-    DataBaseComm dataBaseComm;
+    DataBaseCommunication dataBaseCommunication;
 
     ListView list;
 
-    ArrayList<Event> eventList = new ArrayList();
+    ArrayList<Event> eventList = new ArrayList<>();
 
-    Event[] events = {
-            new Event("Title 1", "description 1",  "25 Feb 2020"),
-            new Event("Title 2", "description 2",  "24 Feb 2020"),
-            new Event("Title 3", "description 3",  "23 Feb 2020"),
-            new Event("Title 4", "description 4",  "22 Feb 2020"),
-            new Event("Title 5", "description 5",  "21 Feb 2020"),
-            new Event("Title 6", "description 6",  "20 Feb 2020"),
-            new Event("Title 7", "description 7",  "19 Feb 2020"),
-            new Event("Title 7", "description 7",  "19 Feb 2020"),
-            new Event("Title 7", "description 7",  "19 Feb 2020"),
-            new Event("Title 7", "description 7",  "19 Feb 2020"),
-            new Event("Title 7", "description 7",  "19 Feb 2020"),
-            new Event("Title 7", "description 7",  "19 Feb 2020"),
-    };
-    String[] data = {
-            "1","1","1","1","1","1","1","1","1","1","1"
-    };
+    String[] data;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        this.dataBaseComm = new DataBaseComm();
+        this.dataBaseCommunication = new DataBaseCommunication();
 
         updateEventList();
+    }
 
+    public void makeView() {
         setContentView(R.layout.activity_main);
 
-        MyListAdapter adapter = new MyListAdapter(this, data, events);
+        MyListAdapter adapter = new MyListAdapter(this, data, eventList.toArray(new Event[0]));
         list = (ListView) findViewById(R.id.event_list);
         list.setAdapter(adapter);
 
@@ -62,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
                 // TODO Auto-generated method stub
                 if (position == 0) {
                     //code specific to first list item
-//                    Toast.makeText(getApplicationContext(), "Place Your First Option Code", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "Place Your First Option Code", Toast.LENGTH_SHORT).show();
                 } else if (position == 1) {
                     //code specific to 2nd list item
                     Toast.makeText(getApplicationContext(), "Place Your Second Option Code", Toast.LENGTH_SHORT).show();
@@ -78,16 +65,18 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
-
     }
 
+
     public void updateEventList() {
-        dataBaseComm.readAllEventsAsObjects(new EventListCallback() {
+        dataBaseCommunication.readAllEventsAsObjects(new EventListCallback() {
             @Override
             public void onCallBack(ArrayList<Event> list) {
-                if (list != null) {
+                if (list != null && list.size() > 0) {
                     eventList = list;
-                    System.out.println("\n list size 3: " + eventList.size());
+                    fillData();
+                    setContentView(R.layout.activity_main);
+                    makeView();
                 }
             }
         }, new MessageCallback() {
@@ -97,4 +86,11 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+
+    public void fillData() {
+        String[] arr = new String[eventList.size()];
+        Arrays.fill(arr, "1");
+        this.data = arr;
+    }
+
 }
