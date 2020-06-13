@@ -6,6 +6,11 @@ package com.example.eventratingapp.models;
 public class Event {
     private String title, description, date;
 
+    //public no-arg constructor required by Firebase
+    public Event() {
+
+    }
+
     /**
      * construct a new Event object.
      * @param title
