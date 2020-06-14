@@ -49,6 +49,7 @@ dependencies {
     // implementation 'com.google.firebase:firebase-analytics:17.4.2'
     implementation 'com.google.firebase:firebase-firestore:21.4.3'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    implementation 'androidx.lifecycle:lifecycle-extensions:2.1.0'
 
     // tests dependencies
     testImplementation 'junit:junit:4.12'
