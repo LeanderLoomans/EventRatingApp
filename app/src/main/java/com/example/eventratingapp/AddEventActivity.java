@@ -9,6 +9,11 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.eventratingapp.database.DataBaseCommunication;
+import com.example.eventratingapp.database.MessageCallback;
+
+import java.util.Date;
+
 public class AddEventActivity extends AppCompatActivity {
 
     EditText nameInput;
@@ -36,10 +41,10 @@ public class AddEventActivity extends AppCompatActivity {
     }
     private boolean checkFields() {
         if (!(
-                nameInput.getText().length() > 0
-                && descriptionInput.getText().length() > 0
-                && startDateInput.getText().length() > 0
-                && endDateInput.getText().length() > 0
+                nameInput.getText().toString().length() > 0
+                && descriptionInput.getText().toString().length() > 0
+                && startDateInput.getText().toString().length() > 0
+                && endDateInput.getText().toString().length() > 0
         )) {
             return false;
         }
@@ -50,10 +55,22 @@ public class AddEventActivity extends AppCompatActivity {
 
     private void onClickCreate() {
         if (checkFields()) {
-            System.out.println("Aangemaakte event: \n" + "naam: " + nameInput.getText() + "\nomschrijving: " + descriptionInput.getText() + "\ndatestart: " + startDateInput + "\ndateEnd: " + endDateInput.getText() );
+            DataBaseCommunication.getInstance().addNewEvent(
+                    nameInput.getText().toString(),
+                    descriptionInput.getText().toString(), new Date(), new MessageCallback() {
+                        @Override
+                        public void onCallBack(String message) {
+                            Toast.makeText(getApplicationContext(),message, Toast.LENGTH_SHORT).show();
+                            finish();
+                        }
+                    });
         }
         else {
-            Toast.makeText(getApplicationContext(), "Sommige velden zijn incorrect ingevuld", Toast.LENGTH_LONG);
+            Toast.makeText(getApplicationContext(), "Incorrecte waarden opgegeven", Toast.LENGTH_SHORT).show();
         }
+    }
+
+    private void navigateBack() {
+
     }
 }
