@@ -26,11 +26,14 @@ import java.util.Map;
 
 public class DataBaseCommunication {
 
-    FirebaseFirestore db;
+    static DataBaseCommunication instance = new DataBaseCommunication();
+    private DataBaseCommunication() { }
 
-    public DataBaseCommunication() {
-        db = FirebaseFirestore.getInstance();
+    public static DataBaseCommunication getInstance() {
+        return instance;
     }
+
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
 
     /**
      * @param docId the ID of the event you wish to obtain
