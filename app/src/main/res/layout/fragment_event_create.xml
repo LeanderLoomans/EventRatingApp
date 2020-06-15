@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="#FFF7E7"
     android:backgroundTint="#FFF7E7"
-    tools:context=".AddEventActivity">
+    tools:context=".EventCreateFragment">
 
 
     <TextView
@@ -14,7 +14,7 @@
         android:layout_width="391dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:text="Omschrijving"
+        android:text="@string/omschrijving"
         android:textColor="#978364"
         android:textColorHighlight="#978364"
         android:textColorLink="#FFFFFF"
@@ -29,7 +29,7 @@
         android:layout_width="391dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:text="Start Datum"
+        android:text="@string/start_datum"
         android:textColor="#978364"
         android:textColorHighlight="#978364"
         android:textColorLink="#FFFFFF"
@@ -44,7 +44,7 @@
         android:layout_width="391dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:text="Eind Datum"
+        android:text="@string/eind_datum"
         android:textColor="#978364"
         android:textColorHighlight="#978364"
         android:textColorLink="#FFFFFF"
@@ -60,7 +60,9 @@
         android:layout_height="48dp"
         android:background="#ECD5B3"
         android:ems="10"
+        android:hint="@string/evenement_naam"
         android:inputType="textPersonName"
+        android:padding="5dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/nameText" />
@@ -70,7 +72,7 @@
         android:layout_width="391dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
-        android:text="Naam"
+        android:text="@string/naam"
         android:textColor="#978364"
         android:textColorHighlight="#978364"
         android:textColorLink="#FFFFFF"
@@ -97,37 +99,77 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/divider4" />
 
-    <EditText
+    <TextView
         android:id="@+id/startDateInput"
-        android:layout_width="391dp"
+        android:layout_width="193dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="14dp"
+        android:layout_marginLeft="14dp"
+        android:layout_marginEnd="5dp"
+        android:layout_marginRight="5dp"
         android:background="#ECD5B3"
-        android:ems="10"
-        android:inputType="date"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:hint="@string/datum"
+        android:gravity="center"
+        app:layout_constraintEnd_toStartOf="@+id/startTimeInput"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/startDateText" />
 
-    <EditText
-        android:id="@+id/endDateInput"
-        android:layout_width="391dp"
+    <TextView
+        android:id="@+id/startTimeInput"
+        android:layout_width="193dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginEnd="14dp"
+        android:layout_marginRight="14dp"
         android:background="#ECD5B3"
-        android:ems="10"
-        android:inputType="date"
+        android:hint="@string/tijdstip"
+        android:gravity="center"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.502"
+        app:layout_constraintStart_toEndOf="@+id/startDateInput"
+        app:layout_constraintTop_toBottomOf="@+id/startDateText" />
+
+    <TextView
+        android:id="@+id/endDateInput"
+        android:layout_width="193dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="14dp"
+        android:layout_marginLeft="14dp"
+        android:layout_marginEnd="5dp"
+        android:layout_marginRight="5dp"
+        android:background="#ECD5B3"
+        android:hint="@string/datum"
+        android:gravity="center"
+        app:layout_constraintEnd_toStartOf="@+id/endTimeInput"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/endDateText" />
+
+    <TextView
+        android:id="@+id/endTimeInput"
+        android:layout_width="193dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginEnd="14dp"
+        android:layout_marginRight="14dp"
+        android:background="#ECD5B3"
+        android:hint="@string/tijdstip"
+        android:gravity="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/endDateInput"
         app:layout_constraintTop_toBottomOf="@+id/endDateText" />
 
     <EditText
         android:id="@+id/descriptionInput"
         android:layout_width="391dp"
         android:layout_height="148dp"
+        android:autofillHints=""
         android:background="#ECD5B3"
         android:ems="10"
         android:gravity="start|top"
+        android:hint="@string/evenement_omschrijving"
         android:inputType="textMultiLine"
+        android:padding="5dp"
         android:scrollHorizontally="false"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.483"
@@ -189,12 +231,5 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/endDateInput" />
-
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

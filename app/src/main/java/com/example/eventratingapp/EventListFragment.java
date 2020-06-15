@@ -21,6 +21,7 @@ import com.example.eventratingapp.database.EventListCallback;
 import com.example.eventratingapp.database.MessageCallback;
 import com.example.eventratingapp.listeners.OnEventItemClick;
 import com.example.eventratingapp.models.Event;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -52,12 +53,14 @@ public class EventListFragment extends Fragment implements OnEventItemClick {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        this.dataBaseCommunication = new DataBaseCommunication();
+        this.dataBaseCommunication = DataBaseCommunication.getInstance();
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(
+            LayoutInflater inflater,
+            ViewGroup container,
+            Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_event_list, container, false);
         // Set the adapter
         if (view instanceof RecyclerView) {
@@ -76,6 +79,12 @@ public class EventListFragment extends Fragment implements OnEventItemClick {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         navController = Navigation.findNavController(view);
+        view.findViewById(R.id.addButton).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                  navController.navigate(R.id.action_event_list_fragment_to_eventCreateFragment);
+            }
+        });
     }
 
     public void updateEventList() {
