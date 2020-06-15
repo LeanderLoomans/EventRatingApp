@@ -16,4 +16,10 @@
     <string name="start_datum">Start Datum</string>
     <string name="eind_datum">Eind Datum</string>
     <string name="naam">Naam</string>
+    <string name="dd_mm_yyyy">DD/MM/YYYY</string>
+    <string name="hh_mm">hh:mm</string>
+    <string name="datum">Datum</string>
+    <string name="tijdstip">Tijdstip</string>
+    <string name="evenement_omschrijving"> Evenement omschrijving…</string>
+    <string name="evenement_naam"> Evenement naam…</string>
 </resources>
