@@ -22,19 +22,19 @@ class MyListAdapter extends ArrayAdapter<String> {
         this.context = context;
         this.events = events;
     }
-
-    public View getView(int position, View view, ViewGroup parent) {
-        LayoutInflater inflater=context.getLayoutInflater();
-        View rowView= inflater.inflate(R.layout.layout_test, null,true);
-
-        TextView titleText = (TextView) rowView.findViewById(R.id.title);
-        TextView subtitleText = (TextView) rowView.findViewById(R.id.subtitle);
-        TextView date = (TextView) rowView.findViewById(R.id.date);
-
-        titleText.setText(events[position].getTitle());
-        subtitleText.setText(events[position].getDescription());
-        date.setText(events[position].getDate());
-
-        return rowView;
-    };
+//
+//    public View getView(int position, View view, ViewGroup parent) {
+//        LayoutInflater inflater=context.getLayoutInflater();
+//        View rowView= inflater.inflate(R.layout.layout_test, null,true);
+//
+//        TextView titleText = (TextView) rowView.findViewById(R.id.title);
+//        TextView subtitleText = (TextView) rowView.findViewById(R.id.subtitle);
+//        TextView date = (TextView) rowView.findViewById(R.id.date);
+//
+//        titleText.setText(events[position].getTitle());
+//        subtitleText.setText(events[position].getDescription());
+//        date.setText(events[position].getDate());
+//
+//        return rowView;
+//    };
 }

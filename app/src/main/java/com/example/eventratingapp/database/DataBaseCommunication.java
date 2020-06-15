@@ -78,7 +78,7 @@ public class DataBaseCommunication {
                     } catch (Exception e) {
                         eventListCallback.onCallBack(null);
                         messageCallback.onCallBack("Failed to retrieve events");
-                        System.out.println(e.getMessage());
+                        throw e;
                     }
                 }
                 else {
