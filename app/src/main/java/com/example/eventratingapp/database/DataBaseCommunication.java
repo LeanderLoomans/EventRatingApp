@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.sax.EndElementListener;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -27,11 +28,15 @@ import java.util.Map;
 public class DataBaseCommunication {
 
     static DataBaseCommunication instance = new DataBaseCommunication();
+    private static Map<String, Map> rating = createRatingMap();
+
+
     private DataBaseCommunication() { }
 
     public static DataBaseCommunication getInstance() {
         return instance;
     }
+
 
     FirebaseFirestore db = FirebaseFirestore.getInstance();
 
@@ -89,19 +94,28 @@ public class DataBaseCommunication {
         });
     }
 
+
     /**
-     * @param title Title of the new event
-     * @param description Description of the new event
-     * @param date Date that the new event will take place
-     * @param messageCallback Callback to give user feedback
+     *
+     * @param name
+     * @param description
+     * @param startDate
+     * @param endDate
+     * @param messageCallback
      */
-    public void addNewEvent(String title, String description, Date date, final MessageCallback messageCallback) {
+    public void addNewEvent(String name, String description, String startDate, String endDate, final MessageCallback messageCallback) {
 
+        //fill a new event object
         Map<String, Object> newEvent = new HashMap<>();
-        newEvent.put("title", title);
+        newEvent.put("name", name);
         newEvent.put("description", description);
-        newEvent.put("date", date.toString());
+        newEvent.put("date", new Date().toString());
+        newEvent.put("rating", rating);
+        newEvent.put("startDate", startDate);
+        newEvent.put("endDate", endDate);
 
+
+        //send new event to DB
         db  .collection("Events")
                 .document()
                 .set(newEvent)
@@ -117,5 +131,19 @@ public class DataBaseCommunication {
                         messageCallback.onCallBack("Failed to add event");
                     }
                 });
+    }
+
+    private static Map<String, Map> createRatingMap() {
+        Map<String, Map> ratingTemplate = new HashMap<>();
+        Map<String, Integer> green = new HashMap<>();
+        green.put("counter", 0);
+        Map<String, Integer> red = new HashMap<>();
+        red.put("counter", 0);
+        Map<String, Integer> yellow = new HashMap<>();
+        yellow.put("counter", 0);
+        ratingTemplate.put("green", green);
+        ratingTemplate.put("red", red);
+        ratingTemplate.put("yellow", yellow);
+        return ratingTemplate;
     }
 }

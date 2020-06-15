@@ -13,6 +13,9 @@
         <action
             android:id="@+id/action_event_list_fragment_to_event_list_item_fragment"
             app:destination="@id/event_list_item_fragment" />
+        <action
+            android:id="@+id/action_event_list_fragment_to_eventCreateFragment"
+            app:destination="@id/eventCreateFragment" />
     </fragment>
 
     <fragment
@@ -27,10 +30,17 @@
             android:id="@+id/action_event_list_item_fragment_to_event_rating_fragment"
             app:destination="@id/event_rating_fragment" />
     </fragment>
+
     <fragment
         android:id="@+id/event_rating_fragment"
         android:name="com.example.eventratingapp.EventRatingFragment"
         android:label="fragment_event_rating"
         tools:layout="@layout/fragment_event_rating" />
+
+    <fragment
+        android:id="@+id/eventCreateFragment"
+        android:name="com.example.eventratingapp.EventCreateFragment"
+        android:label="fragment_event_create"
+        tools:layout="@layout/fragment_event_create" />
 
 </navigation>

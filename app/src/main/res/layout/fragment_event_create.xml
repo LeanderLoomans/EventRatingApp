@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="#FFF7E7"
     android:backgroundTint="#FFF7E7"
-    tools:context=".AddEventActivity">
+    tools:context=".EventCreateFragment">
 
 
     <TextView
@@ -14,7 +14,7 @@
         android:layout_width="391dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:text="Omschrijving"
+        android:text="@string/omschrijving"
         android:textColor="#978364"
         android:textColorHighlight="#978364"
         android:textColorLink="#FFFFFF"
@@ -29,7 +29,7 @@
         android:layout_width="391dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:text="Start Datum"
+        android:text="@string/start_datum"
         android:textColor="#978364"
         android:textColorHighlight="#978364"
         android:textColorLink="#FFFFFF"
@@ -44,7 +44,7 @@
         android:layout_width="391dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:text="Eind Datum"
+        android:text="@string/eind_datum"
         android:textColor="#978364"
         android:textColorHighlight="#978364"
         android:textColorLink="#FFFFFF"
@@ -70,7 +70,7 @@
         android:layout_width="391dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
-        android:text="Naam"
+        android:text="@string/naam"
         android:textColor="#978364"
         android:textColorHighlight="#978364"
         android:textColorLink="#FFFFFF"
@@ -132,7 +132,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.483"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/descriptionText" />
+        app:layout_constraintTop_toBottomOf="@+id/descriptionText"
+        android:autofillHints="" />
 
     <View
         android:id="@+id/divider"
@@ -189,12 +190,5 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/endDateInput" />
-
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
