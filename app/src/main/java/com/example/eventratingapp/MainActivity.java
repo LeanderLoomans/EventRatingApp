@@ -2,6 +2,7 @@ package com.example.eventratingapp;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -12,15 +13,16 @@ import com.example.eventratingapp.database.DataBaseCommunication;
 import com.example.eventratingapp.database.EventListCallback;
 import com.example.eventratingapp.database.MessageCallback;
 import com.example.eventratingapp.models.Event;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Date;
 
 public class MainActivity extends AppCompatActivity {
     DataBaseCommunication dataBaseCommunication;
 
     ListView list;
+    FloatingActionButton addButton;
 
     ArrayList<Event> eventList = new ArrayList<>();
 
@@ -28,15 +30,29 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        this.dataBaseCommunication = new DataBaseCommunication();
+        setContentView(R.layout.activity_main);
 
+        super.onCreate(savedInstanceState);
+        this.dataBaseCommunication = DataBaseCommunication.getInstance();
         updateEventList();
+
+        addButton = (FloatingActionButton) findViewById(R.id.addButton);
+
+
+        addButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                openAddEvent();
+            }
+        });
+    }
+
+    public void openAddEvent() {
+        Intent intent = new Intent(this, AddEventActivity.class);
+        startActivity(intent);
     }
 
     public void makeView() {
-        setContentView(R.layout.activity_main);
-
         MyListAdapter adapter = new MyListAdapter(this, data, eventList.toArray(new Event[0]));
         list = (ListView) findViewById(R.id.event_list);
         list.setAdapter(adapter);
