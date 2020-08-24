@@ -1,15 +1,11 @@
 package com.example.eventratingapp.database;
 
+import android.util.Log;
+
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 
-import android.os.Bundle;
-import android.sax.EndElementListener;
-import android.widget.TextView;
-import android.widget.Toast;
-
-import com.example.eventratingapp.R;
 import com.example.eventratingapp.models.Event;
+import com.example.eventratingapp.models.EventRating;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -20,8 +16,8 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -29,7 +25,7 @@ public class DataBaseCommunication {
 
     static DataBaseCommunication instance = new DataBaseCommunication();
     private static Map<String, Map> rating = createRatingMap();
-
+    SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/YYY HH:mm");
 
     private DataBaseCommunication() { }
 
@@ -76,14 +72,26 @@ public class DataBaseCommunication {
                     ArrayList<Event> eventList = new ArrayList<>();
                     try {
                         for (DocumentSnapshot document : task.getResult()) {
-                            eventList.add(document.toObject(Event.class));
+
+                            Log.d("dumpAhs", document.getData().toString());
+                            Event eventPojo = new Event();
+                            eventPojo.startDate = dateFormat.parse(document.getString("startDate"));
+                            eventPojo.endDate = dateFormat.parse(document.getString("endDate"));
+                            eventPojo.description = document.getString("description");
+                            eventPojo.name = document.getString("name");
+                            eventPojo.rating = new EventRating(
+                                    (int) (long) document.get("rating.green.counter"),
+                                    (int) (long) document.get("rating.red.counter"),
+                                    (int) (long) document.get("rating.yellow.counter")
+                            );
+                            eventList.add(eventPojo);
                         }
                         eventListCallback.onCallBack(eventList);
                         messageCallback.onCallBack("Successfully retrieved events");
                     } catch (Exception e) {
                         eventListCallback.onCallBack(null);
                         messageCallback.onCallBack("Failed to retrieve events");
-                        throw e;
+                        e.printStackTrace();
                     }
                 }
                 else {
@@ -109,10 +117,9 @@ public class DataBaseCommunication {
         Map<String, Object> newEvent = new HashMap<>();
         newEvent.put("name", name);
         newEvent.put("description", description);
-        newEvent.put("date", new Date().toString());
         newEvent.put("rating", rating);
-        newEvent.put("startDate", startDate);
-        newEvent.put("endDate", endDate);
+        newEvent.put("startDate", startDate.trim());
+        newEvent.put("endDate", endDate.trim());
 
 
         //send new event to DB
