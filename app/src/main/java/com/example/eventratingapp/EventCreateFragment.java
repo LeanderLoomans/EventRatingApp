@@ -220,6 +220,8 @@ public class EventCreateFragment extends Fragment {
                         && descriptionInput.getText().toString().length() > 0
                         && startDateInput.getText().toString().length() > 0
                         && endDateInput.getText().toString().length() > 0
+                        && startTimeInput.getText().toString().length() > 0
+                        && endTimeInput.getText().toString().length() > 0
         )) {
             return false;
         }
