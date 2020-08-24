@@ -73,7 +73,6 @@ public class DataBaseCommunication {
                     try {
                         for (DocumentSnapshot document : task.getResult()) {
 
-                            Log.d("dumpAhs", document.getData().toString());
                             Event eventPojo = new Event();
                             eventPojo.id = document.getId();
                             eventPojo.startDate = dateFormat.parse(document.getString("startDate"));
@@ -85,6 +84,7 @@ public class DataBaseCommunication {
                                     (int) (long) document.get("rating.red.counter"),
                                     (int) (long) document.get("rating.yellow.counter")
                             );
+
                             eventList.add(eventPojo);
                         }
                         eventListCallback.onCallBack(eventList);
