@@ -3,4 +3,6 @@
     <color name="colorPrimary">#517691</color>
     <color name="colorPrimaryDark">#A9C7DE</color>
     <color name="colorAccent">#E2E2E2</color>
+    <color name="app_background_color_tint">#FFF7E7</color>
+    <color name="app_background_color">#FFF7E7</color>
 </resources>

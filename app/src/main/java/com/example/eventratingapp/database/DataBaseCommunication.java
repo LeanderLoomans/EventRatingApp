@@ -24,7 +24,7 @@ import java.util.Map;
 public class DataBaseCommunication {
 
     static DataBaseCommunication instance = new DataBaseCommunication();
-    private static Map<String, Map> rating = createRatingMap();
+    private static Map<String, Map> rating = createRatingMap( new EventRating());
     SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/YYY HH:mm");
 
     private DataBaseCommunication() { }
@@ -75,6 +75,7 @@ public class DataBaseCommunication {
 
                             Log.d("dumpAhs", document.getData().toString());
                             Event eventPojo = new Event();
+                            eventPojo.id = document.getId();
                             eventPojo.startDate = dateFormat.parse(document.getString("startDate"));
                             eventPojo.endDate = dateFormat.parse(document.getString("endDate"));
                             eventPojo.description = document.getString("description");
@@ -140,17 +141,37 @@ public class DataBaseCommunication {
                 });
     }
 
-    private static Map<String, Map> createRatingMap() {
+    private static Map<String, Map> createRatingMap(EventRating rating) {
         Map<String, Map> ratingTemplate = new HashMap<>();
         Map<String, Integer> green = new HashMap<>();
-        green.put("counter", 0);
+        green.put("counter", rating.green.counter);
         Map<String, Integer> red = new HashMap<>();
-        red.put("counter", 0);
+        red.put("counter", rating.red.counter);
         Map<String, Integer> yellow = new HashMap<>();
-        yellow.put("counter", 0);
+        yellow.put("counter", rating.yellow.counter);
         ratingTemplate.put("green", green);
         ratingTemplate.put("red", red);
         ratingTemplate.put("yellow", yellow);
         return ratingTemplate;
+    }
+
+    public void updateEvent(Event event, MessageCallback callback) {
+        Map<String, Object> updatedEvent = convertEventToMap(event);
+        db.collection("Events").document(event.id).update(updatedEvent).addOnCompleteListener(task -> {
+            if(task.isSuccessful()) {
+                callback.onCallBack("Event updated");
+            }
+        });
+    }
+
+    private Map<String, Object> convertEventToMap(Event event) {
+        Map<String, Object> eventMap = new HashMap<>();
+        eventMap.put("name", event.name);
+        eventMap.put("description", event.description);
+        eventMap.put("rating", event.rating);
+        eventMap.put("startDate", dateFormat.format(event.startDate));
+        eventMap.put("endDate", dateFormat.format(event.endDate));
+
+        return eventMap;
     }
 }

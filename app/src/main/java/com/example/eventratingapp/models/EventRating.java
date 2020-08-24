@@ -23,7 +23,11 @@ public class EventRating {
     /**
      * create a new EventRating
      */
-    public EventRating(){}
+    public EventRating(){
+        this.green = new Counter(0);
+        this.yellow = new Counter(0);
+        this.red = new Counter(0);
+    }
 
     /**
      * create a EventRating object with scores

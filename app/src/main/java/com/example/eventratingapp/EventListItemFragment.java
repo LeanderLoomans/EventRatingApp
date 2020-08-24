@@ -55,21 +55,9 @@ public class EventListItemFragment extends Fragment implements View.OnClickListe
         ((TextView ) view.findViewById(R.id.event_detail_description)).setText(event.description);
         ((TextView ) view.findViewById(R.id.event_detail_start_date)).setText(event.dateFormatted());
 
-        System.out.println("---------------------------------------------------------------------------");
-        System.out.println(event.rating.green.getCounter());
-        System.out.println("---------------------------------------------------------------------------");
-
         // render ratings
         ((TextView ) view.findViewById(R.id.event_detail_rating_green)).setText(String.valueOf(event.rating.green.getCounter()));
-
-        System.out.println("---------------------------------------------------------------------------");
-        System.out.println(event.rating.yellow.getCounter());
-        System.out.println("---------------------------------------------------------------------------");
         ((TextView ) view.findViewById(R.id.event_detail_rating_yellow)).setText(String.valueOf(event.rating.yellow.getCounter()));
-
-        System.out.println("---------------------------------------------------------------------------");
-        System.out.println(event.rating.red.getCounter());
-        System.out.println("---------------------------------------------------------------------------");
         ((TextView ) view.findViewById(R.id.event_detail_rating_red)).setText(String.valueOf(event.rating.red.getCounter()));
 
         FloatingActionButton actionButton = ((FloatingActionButton) view.findViewById(R.id.add_rating));
@@ -83,4 +71,6 @@ public class EventListItemFragment extends Fragment implements View.OnClickListe
         bundle.putParcelable("event", event);
         navController.navigate(R.id.action_event_list_item_fragment_to_event_rating_fragment, bundle);
     }
+
+
 }
