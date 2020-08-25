@@ -1,49 +1,77 @@
 package com.example.eventratingapp.models;
+import android.os.Parcel;
+import android.os.Parcelable;
+
+import java.io.Serializable;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 
 /**
- * Event pojo object
+ * Event POJO object
  */
-public class Event {
-    private String title, description, date;
+public class Event implements Parcelable {
 
-    //public no-arg constructor required by Firebase
-    public Event() {
+    public String id;
+    public String name;
+    public String description;
+    public Date startDate;
+    public Date endDate;
+    public EventRating rating;
 
-    }
+    private static SimpleDateFormat dateFormat = new SimpleDateFormat("d MMM yy hh:mm", Locale.GERMAN);
 
-    /**
-     * construct a new Event object.
-     * @param title
-     * @param description
-     * @param date
-     */
-    public Event(String title, String description, String date) {
-        this.title = title;
+    public Event(){}
+
+    public Event(String name, String description, Date startDate, Date endDate, EventRating rating){
+        this.name = name;
         this.description = description;
-        this.date = date;
-    }
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String name) {
-        this.title = name;
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.rating = rating;
     }
 
-    public String getDescription() {
-        return description;
+
+    protected Event(Parcel in) {
+        id = in.readString();
+        name = in.readString();
+        description = in.readString();
+        long tmpStartDate = in.readLong();
+        startDate = tmpStartDate != -1 ? new Date(tmpStartDate) : null;
+        long tmpEndDate = in.readLong();
+        endDate = tmpEndDate != -1 ? new Date(tmpEndDate) : null;
+        rating = (EventRating) in.readValue(EventRating.class.getClassLoader());
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    @Override
+    public int describeContents() {
+        return 0;
     }
 
-    public String getDate() {
-        return date;
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(id);
+        dest.writeString(name);
+        dest.writeString(description);
+        dest.writeLong(startDate != null ? startDate.getTime() : -1L);
+        dest.writeLong(endDate != null ? endDate.getTime() : -1L);
+        dest.writeValue(rating);
     }
 
-    public void setDate(String date) {
-        this.date = date;
-    }
+    @SuppressWarnings("unused")
+    public static final Parcelable.Creator<Event> CREATOR = new Parcelable.Creator<Event>() {
+        @Override
+        public Event createFromParcel(Parcel in) {
+            return new Event(in);
+        }
 
+        @Override
+        public Event[] newArray(int size) {
+            return new Event[size];
+        }
+    };
+
+    public String dateFormatted() {
+        return Event.dateFormat.format(this.startDate);
+    }
 }

@@ -2,4 +2,24 @@
     <string name="app_name">EventRatingApp</string>
     <string name="title">Evenement titel</string>
     <string name="description">Evenement omschrijving</string>
+    <string name="hello">Hello</string>
+    <string name="event_name">Evenement Naam</string>
+    <string name="event_view_start_date">Start Datum</string>
+    <string name="event_view_description">Omschrijving</string>
+    <string name="event_view_rating_green">Groen</string>
+    <string name="event_view_rating_yellow">Geel</string>
+    <string name="event_view_rating_red">Rood</string>
+    <string name="set_rating">Reflecteer op evenement</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="omschrijving">Omschrijving</string>
+    <string name="start_datum">Start Datum</string>
+    <string name="eind_datum">Eind Datum</string>
+    <string name="naam">Naam</string>
+    <string name="dd_mm_yyyy">DD/MM/YYYY</string>
+    <string name="hh_mm">hh:mm</string>
+    <string name="datum">Datum</string>
+    <string name="tijdstip">Tijdstip</string>
+    <string name="evenement_omschrijving"> Evenement omschrijving…</string>
+    <string name="evenement_naam"> Evenement naam…</string>
 </resources>

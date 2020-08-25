@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation_graph"
+    app:startDestination="@id/event_list_fragment">
+
+    <fragment
+        android:id="@+id/event_list_fragment"
+        android:name="com.example.eventratingapp.EventListFragment"
+        android:label="fragment_event_list"
+        tools:layout="@layout/fragment_event_list" >
+        <action
+            android:id="@+id/action_event_list_fragment_to_event_list_item_fragment"
+            app:destination="@id/event_list_item_fragment" />
+        <action
+            android:id="@+id/action_event_list_fragment_to_eventCreateFragment"
+            app:destination="@id/eventCreateFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/event_list_item_fragment"
+        android:name="com.example.eventratingapp.EventListItemFragment"
+        android:label="event_list_item_fragment"
+        tools:layout="@layout/event_fragment">
+        <argument
+            android:name="event"
+            app:argType="com.example.eventratingapp.models.Event" />
+        <action
+            android:id="@+id/action_event_list_item_fragment_to_event_rating_fragment"
+            app:destination="@id/event_rating_fragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/event_rating_fragment"
+        android:name="com.example.eventratingapp.EventRatingFragment"
+        android:label="fragment_event_rating"
+        tools:layout="@layout/fragment_event_rating">
+    <argument
+        android:name="event"
+        app:argType="com.example.eventratingapp.models.Event" />
+        <action
+            android:id="@+id/action_event_rating_fragment_to_event_list_item_fragment"
+            app:destination="@id/event_list_item_fragment"
+            app:popUpTo="@id/event_list_item_fragment"
+            app:popUpToInclusive="true" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/eventCreateFragment"
+        android:name="com.example.eventratingapp.EventCreateFragment"
+        android:label="fragment_event_create"
+        tools:layout="@layout/fragment_event_create" />
+
+</navigation>
