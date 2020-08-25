@@ -101,6 +101,5 @@ public class EventListFragment extends Fragment implements OnEventItemClick {
         Bundle bundle = new Bundle();
         bundle.putParcelable("event", event);
         navController.navigate(R.id.action_event_list_fragment_to_event_list_item_fragment, bundle);
-        Toast.makeText(context, event.description, Toast.LENGTH_SHORT).show();
     }
 }

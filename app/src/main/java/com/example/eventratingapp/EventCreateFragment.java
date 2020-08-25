@@ -27,7 +27,6 @@ import com.example.eventratingapp.database.DataBaseCommunication;
 import com.example.eventratingapp.database.MessageCallback;
 
 import java.util.Calendar;
-import java.util.Date;
 
 
 public class EventCreateFragment extends Fragment {
