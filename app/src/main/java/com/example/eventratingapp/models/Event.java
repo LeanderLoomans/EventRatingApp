@@ -19,7 +19,7 @@ public class Event implements Parcelable {
     public Date endDate;
     public EventRating rating;
 
-    private static SimpleDateFormat dateFormat = new SimpleDateFormat("d MMM yy hh:mm", Locale.GERMAN);
+    private static SimpleDateFormat dateFormat = new SimpleDateFormat("dd MMM yy hh:mm", Locale.ENGLISH);
 
     public Event(){}
 

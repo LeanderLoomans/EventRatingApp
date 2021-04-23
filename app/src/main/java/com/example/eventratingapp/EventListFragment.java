@@ -21,6 +21,9 @@ import com.example.eventratingapp.listeners.OnEventItemClick;
 import com.example.eventratingapp.models.Event;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -87,6 +90,7 @@ public class EventListFragment extends Fragment implements OnEventItemClick {
         dataBaseCommunication.readAllEventsAsObjects(
                 list -> {
                     if (list != null && list.size() > 0) {
+                        Collections.sort(list, (o1, o2) -> o2.startDate.compareTo(o1.startDate));
                         adapter.setItems(list);
                     }
                 },

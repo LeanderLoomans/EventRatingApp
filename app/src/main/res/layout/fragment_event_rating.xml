@@ -14,11 +14,11 @@
         android:id="@+id/button_list"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginStart="64dp"
-        android:layout_marginLeft="64dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
         android:layout_marginTop="32dp"
-        android:layout_marginEnd="64dp"
-        android:layout_marginRight="64dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
         android:layout_marginBottom="32dp"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -33,26 +33,36 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:background="#5EAF4C"
-            android:text="@string/event_view_rating_green"
-            android:textColor="#FFFFFF" />
+            android:background="#8EDD8D"
+            android:text="Fantastisch"
+            android:textColor="#5C9757"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:layout_margin="20px"/>
 
         <Button
             android:id="@+id/yellow_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:background="#D1C244"
-            android:text="@string/event_view_rating_yellow"
-            android:textColor="#4A3A06" />
+            android:background="#F7EA7E"
+            android:text="Matig"
+            android:textColor="#C7BD51"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:layout_margin="20px"/>
 
         <Button
             android:id="@+id/red_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:background="#DD3838"
-            android:text="@string/event_view_rating_red"
-            android:textColor="#6A0F0F" />
+            android:background="#FF8989"
+            android:text="Kon Beter"
+            android:textColor="#DE4444"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:layout_margin="20px"/>
+
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

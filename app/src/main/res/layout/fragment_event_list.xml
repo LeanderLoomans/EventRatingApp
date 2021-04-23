@@ -14,8 +14,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layoutManager="LinearLayoutManager"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         tools:context=".EventListFragment"
-        tools:listitem="@layout/fragment_event_list_item" />
+        tools:listitem="@layout/fragment_event_list_item"
+        tools:ignore="MissingConstraints" />
 
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
