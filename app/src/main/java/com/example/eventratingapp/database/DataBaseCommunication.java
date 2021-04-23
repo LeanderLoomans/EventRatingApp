@@ -65,40 +65,38 @@ public class DataBaseCommunication {
      */
     public void readAllEventsAsObjects(final EventListCallback eventListCallback, final MessageCallback messageCallback) {
         CollectionReference event = db.collection("Events");
-        event.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                if (task.isSuccessful()) {
-                    ArrayList<Event> eventList = new ArrayList<>();
-                    try {
-                        for (DocumentSnapshot document : task.getResult()) {
+        event.get().addOnCompleteListener(task -> {
 
-                            Event eventPojo = new Event();
-                            eventPojo.id = document.getId();
-                            eventPojo.startDate = dateFormat.parse(document.getString("startDate"));
-                            eventPojo.endDate = dateFormat.parse(document.getString("endDate"));
-                            eventPojo.description = document.getString("description");
-                            eventPojo.name = document.getString("name");
-                            eventPojo.rating = new EventRating(
-                                    (int) (long) document.get("rating.green.counter"),
-                                    (int) (long) document.get("rating.red.counter"),
-                                    (int) (long) document.get("rating.yellow.counter")
-                            );
+            if (task.isSuccessful()) {
+                ArrayList<Event> eventList = new ArrayList<>();
+                try {
+                    for (DocumentSnapshot document : task.getResult()) {
 
-                            eventList.add(eventPojo);
-                        }
-                        eventListCallback.onCallBack(eventList);
-                        messageCallback.onCallBack("Successfully retrieved events");
-                    } catch (Exception e) {
-                        eventListCallback.onCallBack(null);
-                        messageCallback.onCallBack("Failed to retrieve events");
-                        e.printStackTrace();
+                        Event eventPojo = new Event();
+                        eventPojo.id = document.getId();
+                        eventPojo.startDate = dateFormat.parse(document.getString("startDate"));
+                        eventPojo.endDate = dateFormat.parse(document.getString("endDate"));
+                        eventPojo.description = document.getString("description");
+                        eventPojo.name = document.getString("name");
+                        eventPojo.rating = new EventRating(
+                                (int) (long) document.get("rating.green.counter"),
+                                (int) (long) document.get("rating.red.counter"),
+                                (int) (long) document.get("rating.yellow.counter")
+                        );
+
+                        eventList.add(eventPojo);
                     }
-                }
-                else {
+                    eventListCallback.onCallBack(eventList);
+                    messageCallback.onCallBack("Successfully retrieved events");
+                } catch (Exception e) {
                     eventListCallback.onCallBack(null);
                     messageCallback.onCallBack("Failed to retrieve events");
+                    e.printStackTrace();
                 }
+            }
+            else {
+                eventListCallback.onCallBack(null);
+                messageCallback.onCallBack("Failed to retrieve events");
             }
         });
     }

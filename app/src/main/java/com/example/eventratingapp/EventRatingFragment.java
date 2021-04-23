@@ -76,8 +76,6 @@ public class EventRatingFragment extends Fragment {
     }
 
     public void onRatingButtonClick(Counter counter){
-
-
         counter.increase(1);
         Bundle bundle = new Bundle();
         bundle.putParcelable("event", event);

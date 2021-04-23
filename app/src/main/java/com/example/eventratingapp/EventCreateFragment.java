@@ -27,6 +27,7 @@ import com.example.eventratingapp.database.DataBaseCommunication;
 import com.example.eventratingapp.database.MessageCallback;
 
 import java.util.Calendar;
+import java.util.Objects;
 
 
 public class EventCreateFragment extends Fragment {
@@ -147,12 +148,7 @@ public class EventCreateFragment extends Fragment {
         };
 
         createButton = view.findViewById(R.id.createButton);
-        createButton.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v) {
-                onClickCreate();
-            }
-        });
+        createButton.setOnClickListener(v -> onClickCreate());
     }
 
     private void onClickCreate() {
@@ -160,20 +156,15 @@ public class EventCreateFragment extends Fragment {
             DataBaseCommunication.getInstance().addNewEvent(
                     nameInput.getText().toString(),
                     descriptionInput.getText().toString(),
-                    startDateInput.getText().toString()
-                            + " " + startTimeInput.getText().toString(),
-                    endDateInput.getText().toString()
-                            + " " + endTimeInput.getText().toString(),
-                    new MessageCallback() {
-                        @Override
-                        public void onCallBack(String message) {
-                            Toast.makeText(context, message, Toast.LENGTH_SHORT).show();
-                            getActivity().onBackPressed();
-                        }
+                    startDateInput.getText().toString() + " " + startTimeInput.getText().toString(),
+                    endDateInput.getText().toString() + " " + endTimeInput.getText().toString(),
+                    message -> {
+                        Toast.makeText(context, message, Toast.LENGTH_SHORT).show();
+                        requireActivity().onBackPressed();
                     });
         }
         else {
-            Toast.makeText(context, "Incorrecte waarden opgegeven", Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, "Niet alle velden zijn ingevuld naar behoren.", Toast.LENGTH_SHORT).show();
         }
     }
 
