@@ -42,7 +42,8 @@ public class MyEventListRecyclerViewAdapter extends RecyclerView.Adapter<MyEvent
         holder.mItem = mValues.get(position);
         holder.mTitleView.setText(mValues.get(position).name);
         holder.mDescriptionView.setText(mValues.get(position).description);
-        holder.mStartDateView.setText(mValues.get(position).dateFormatted());
+        holder.mStartDateView.setText(mValues.get(position).dateFormatted().substring(0, 2));
+        holder.mStartDateMonthView.setText(mValues.get(position).dateFormatted().substring(3, 6));
     }
 
     @Override
@@ -63,6 +64,7 @@ public class MyEventListRecyclerViewAdapter extends RecyclerView.Adapter<MyEvent
         public TextView mTitleView;
         public TextView mDescriptionView;
         public TextView mStartDateView;
+        public TextView mStartDateMonthView;
         private OnEventItemClick clickListener;
 
         public ViewHolder(View view, OnEventItemClick clickListener) {
@@ -71,6 +73,7 @@ public class MyEventListRecyclerViewAdapter extends RecyclerView.Adapter<MyEvent
             mTitleView = (TextView) view.findViewById(R.id.event_title);
             mDescriptionView = (TextView) view.findViewById(R.id.event_description);
             mStartDateView = (TextView) view.findViewById(R.id.event_start_date);
+            mStartDateMonthView = (TextView) view.findViewById(R.id.event_start_date_month);
             this.clickListener = clickListener;
             view.setOnClickListener(this);
         }

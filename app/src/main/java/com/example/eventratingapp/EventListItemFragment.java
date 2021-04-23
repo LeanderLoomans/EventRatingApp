@@ -13,6 +13,8 @@ import androidx.navigation.Navigation;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.eventratingapp.models.Event;
@@ -56,9 +58,23 @@ public class EventListItemFragment extends Fragment implements View.OnClickListe
         ((TextView ) view.findViewById(R.id.event_detail_start_date)).setText(event.dateFormatted());
 
         // render ratings
-        ((TextView ) view.findViewById(R.id.event_detail_rating_green)).setText(String.valueOf(event.rating.green.getCounter()));
-        ((TextView ) view.findViewById(R.id.event_detail_rating_yellow)).setText(String.valueOf(event.rating.yellow.getCounter()));
-        ((TextView ) view.findViewById(R.id.event_detail_rating_red)).setText(String.valueOf(event.rating.red.getCounter()));
+
+        ((Button ) view.findViewById(R.id.button_green)).setLayoutParams(new LinearLayout.LayoutParams(
+                0,
+                ViewGroup.LayoutParams.WRAP_CONTENT,
+                event.rating.green.getCounter()
+        ));
+        ((Button ) view.findViewById(R.id.button_yellow)).setLayoutParams(new LinearLayout.LayoutParams(
+                0,
+                ViewGroup.LayoutParams.WRAP_CONTENT,
+                event.rating.yellow.getCounter()
+        ));
+        ((Button ) view.findViewById(R.id.button_red)).setLayoutParams(new LinearLayout.LayoutParams(
+                0,
+                ViewGroup.LayoutParams.WRAP_CONTENT,
+                event.rating.red.getCounter()
+        ));
+
 
         FloatingActionButton actionButton = ((FloatingActionButton) view.findViewById(R.id.add_rating));
         actionButton.setOnClickListener(this);
